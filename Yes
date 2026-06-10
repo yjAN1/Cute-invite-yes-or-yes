@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>초대장</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: #fff7e8;
+  font-family: 'Gaegu', cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: #5b4636;
+}
+
+.card {
+  background: #fffdf8;
+  border: 3px dashed #f2b8b8;
+  border-radius: 28px;
+  padding: 42px 30px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+h1 {
+  font-size: 42px;
+  margin: 0 0 10px;
+}
+
+p {
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.buttons {
+  margin-top: 30px;
+  height: 100px;
+  position: relative;
+}
+
+button {
+  font-family: 'Gaegu', cursive;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  font-size: 26px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+#yesBtn {
+  background: #ffb6c1;
+  color: white;
+  position: absolute;
+  left: 35px;
+  top: 25px;
+}
+
+#noBtn {
+  background: #d8c3a5;
+  color: white;
+  position: absolute;
+  left: 180px;
+  top: 25px;
+}
+
+.heart {
+  font-size: 38px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="heart">💌</div>
+  <h1>초대장</h1>
+  <p>
+    윤정이가<br>
+    데이트에<br>
+    초대합니다💕
+  </p>
+  <p>초대에 응하시겠습니까?</p>
+
+  <div class="buttons">
+    <button id="yesBtn">YES</button>
+    <button id="noBtn">NO</button>
+  </div>
+</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+let yesScale = 1;
+let noScale = 1;
+
+function moveNoButton() {
+  const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+  const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.position = "fixed";
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+}
+
+noBtn.addEventListener("mouseover", moveNoButton);
+
+noBtn.addEventListener("click", () => {
+  yesScale += 0.25;
+  noScale -= 0.15;
+
+  if (noScale < 0.25) noScale = 0.25;
+
+  yesBtn.style.transform = `scale(${yesScale})`;
+  noBtn.style.transform = `scale(${noScale})`;
+
+  moveNoButton();
+});
+
+yesBtn.addEventListener("click", () => {
+  document.body.innerHTML = `
+    <div style="
+      font-family:'Gaegu', cursive;
+      text-align:center;
+      color:#5b4636;
+      font-size:34px;
+      padding:30px;
+    ">
+      <div style="font-size:70px;">💖</div>
+      <h1>초대 수락 완료!</h1>
+      <p>그럼 데이트 확정입니다 🤍</p>
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>
